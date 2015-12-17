@@ -46,7 +46,7 @@ public class Counter {
 
         @Override
         public void run() {
-            while(true) {
+            while (true) {
                 synchronized (monitor) {
                     while (myId != printId) {
                         try {
