@@ -5,7 +5,7 @@ package ru.fizteh.fivt.students.Jettriangle.threads;
  */
 
 public class Counter {
-    public static volatile int printId;
+    private static volatile int printId;
 
     public static class ParameterException extends Exception {
         public ParameterException(String message) {
@@ -16,11 +16,11 @@ public class Counter {
     public static void main(String[] args) {
         Integer n = 0;
         try {
-            if(args.length != 1) {
+            if (args.length != 1) {
                 throw new ParameterException("Argument must be exactly one positive number");
             }
             n = Integer.valueOf(args[0]);
-            if(n <= 0) {
+            if (n <= 0) {
                 throw new ParameterException("Argument must be positive");
             }
         } catch (ParameterException e) {
@@ -28,8 +28,8 @@ public class Counter {
             System.exit(1);
         }
         printId = 0;
-        for(int id = 0; id < n; id++) {
-            CounterThread thread = new CounterThread(id, (id+1) % n);
+        for (int id = 0; id < n; id++) {
+            CounterThread thread = new CounterThread(id, (id + 1) % n);
             thread.start();
         }
     }
