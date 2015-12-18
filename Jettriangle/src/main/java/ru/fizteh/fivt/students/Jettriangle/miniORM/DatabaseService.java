@@ -1,8 +1,10 @@
 package ru.fizteh.fivt.students.Jettriangle.miniORM;
 
+
 /**
  * Created by rtriangle on 18.12.15.
  */
+
 
 import com.google.common.base.CaseFormat;
 import org.h2.jdbcx.JdbcConnectionPool;
@@ -14,6 +16,7 @@ import java.sql.*;
 import java.util.*;
 import static ru.fizteh.fivt.students.Jettriangle.miniORM
         .RightNameResolver.isGood;
+
 
 public class DatabaseService<T> implements Closeable {
 
