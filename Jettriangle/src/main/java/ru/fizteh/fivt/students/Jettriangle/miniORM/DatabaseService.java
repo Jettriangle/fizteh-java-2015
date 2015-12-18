@@ -117,8 +117,9 @@ public class DatabaseService<T> implements Closeable {
             }
             queryBuilder.append(getColumnName(tableFields[i])).append(" ")
                     .append(H2StringsResolver.resolve(tableFields[i].getType()));
-            if (i == pkIndex)
+            if (i == pkIndex) {
                 queryBuilder.append(" PRIMARY KEY");
+            }
         }
         queryBuilder.append(")");
         try (Connection conn = pool.getConnection()) {
@@ -165,8 +166,9 @@ public class DatabaseService<T> implements Closeable {
 
     public void delete(T record) throws IllegalArgumentException,
             IllegalAccessException, SQLException {
-        if (pkIndex == -1)
+        if (pkIndex == -1) {
             throw new IllegalArgumentException("NO @PrimaryKey");
+        }
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("DELETE FROM ").append(tableName)
                 .append(" WHERE ").append(tableFields[pkIndex].getName())
@@ -186,8 +188,9 @@ public class DatabaseService<T> implements Closeable {
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("UPDATE ").append(tableName).append(" SET ");
         for (int i = 0; i < tableFields.length; ++i) {
-            if (i != 0)
+            if (i != 0) {
                 queryBuilder.append(", ");
+            }
             queryBuilder.append(getColumnName(tableFields[i])).append(" = ?");
         }
         queryBuilder.append(" WHERE ").append(getColumnName(tableFields[pkIndex]))
@@ -196,8 +199,9 @@ public class DatabaseService<T> implements Closeable {
         try (Connection conn = pool.getConnection()) {
             PreparedStatement statement
                     = conn.prepareStatement(queryBuilder.toString());
-            for (int i = 0; i < tableFields.length; ++i)
+            for (int i = 0; i < tableFields.length; ++i) {
                 statement.setObject(i + 1, tableFields[i].get(record));
+            }
             statement.setObject(tableFields.length + 1, tableFields[pkIndex].get(record));
             statement.execute();
         }
