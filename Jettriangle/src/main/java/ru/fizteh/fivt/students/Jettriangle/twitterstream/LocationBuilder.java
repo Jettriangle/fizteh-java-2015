@@ -21,7 +21,7 @@ import java.net.URLConnection;
 public class LocationBuilder {
     private static final int DEFAULT_RADIUS = 5;
 
-    private GeoLocation getCoordinates(NodeList sections) {
+    private static GeoLocation getCoordinates(NodeList sections) {
         Element section = (Element) sections.item(0);
         String coordinates = section.getTextContent();
         String[] coordinatesParsed = coordinates.split(" ");
@@ -30,7 +30,7 @@ public class LocationBuilder {
         return new GeoLocation(latitude, longitude);
     }
 
-    private Document documentResolver(URL url)
+    private static Document documentResolver(URL url)
             throws IOException, ParserConfigurationException, SAXException {
         URLConnection geoConnection = url.openConnection();
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -45,7 +45,7 @@ public class LocationBuilder {
         return document;
     }
 
-    private String getNearLocation() throws MalformedURLException {
+    private static String getNearLocation() throws MalformedURLException {
         Document document = null;
         try {
             document = documentResolver(new URL("http://api.hostip.info/"));
@@ -62,7 +62,7 @@ public class LocationBuilder {
         return place;
     }
 
-    public Location getLocation(String place) {
+    public static Location getLocation(String place) {
         try {
             if (place.equals("nearby")) {
                 place = getNearLocation();
