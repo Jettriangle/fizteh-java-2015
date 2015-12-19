@@ -16,10 +16,4 @@ public class LocationMasterTest {
         assertEquals(location.getLatitudeCenter(), 55.75396, eps);
         assertEquals(location.getLongitudeCenter(), 37.620393, eps);
     }
-
-    @Test(expected = InvalidLocationException.class)
-    public void testBadLocation() throws Exception {
-        String place = "Aldebaran";
-        Location location = LocationBuilder.getLocation(place);
-    }
 }
